@@ -7,11 +7,12 @@ public class Duel {
 
     private static final Logger LOGGER = LogManager.getLogger(Duel.class.getName());
 
-    /**
-     *
-     */
-    public void jouer() {
+    /*Ajout d'une methode jouer()
+     Elle contient la logique du mode Duel
+     Appel de trois focntions player et random dans la méthode jouer ()
+    */
 
+    public void jouer() {
 
 
         int longueurC = 3;
@@ -29,14 +30,16 @@ public class Duel {
         char[] tableauDeVerification = new char[longueurC];
         Borne[] borneDuRandom = Borne.initialiserLesBornes(longueurC);
 
-        System.out.println("Le nombre choisi par le joueur est : " + saisieJoueur);
+        LOGGER.debug("Le nombre choisi par le joueur est : " + saisieJoueur);
 
         do {
-            //Generation d'un nombre aleatoire par l'IA avec enregistrement du nombre dans plusieurs tableaux
+            /*Generation d'un nombre aleatoire par l'IA avec enregistrement du nombre dans les
+            tableaux en parametres de la Fonction.random
+             */
             Fonction.random(propositionIA, borneDuRandom, tableauDeVerification);
 
             //Affichage de la proposition de l'IA
-            System.out.print("Proposition : " + Arrays.toString(propositionIA) + " -> Réponse : ");
+            LOGGER.debug("Proposition : " + Arrays.toString(propositionIA) + " -> Réponse : ");
             String verification = input.nextLine();
 
             /*Boucle avec condition permettant d'enregistrer la proposition de l'IA
@@ -54,42 +57,43 @@ public class Duel {
 
             //Condition d'arrêt avec affichage
             if ("===".equals(verification)) {
-                System.out.println("Bravo, l'IA a gagne");
+                LOGGER.debug("Bravo, l'IA a gagne");
                 partieTermine = true;
             }
 
-            System.out.println("Le nombre choisi par l'IA est : " + Arrays.toString(nombreChoisiParIA));
-            System.out.println("Saisir un nombre");
+            LOGGER.debug("Le nombre choisi par l'IA est : " + Arrays.toString(nombreChoisiParIA));
+            LOGGER.debug("Saisir un nombre");
             String tentativeJoueur = input.nextLine();
             int tabtentative[] = Fonction.player(longueurC, tentativeJoueur);
 
             //Boucle avec condition afin de comparer le nomnbreChoisiParIA et le tableau du Joueur
-            System.out.print("Proposition : " + tentativeJoueur + " -> Réponse : ");
+
+            LOGGER.debug("Proposition : " + tentativeJoueur + " -> Réponse : ");
             nbrCorrect = 0;
             for (int index = 0; index < longueurC; index++) {
                 if (nombreChoisiParIA[index] < tabtentative[index]) {
-                    System.out.print("-");
+                    LOGGER.debug("-");
                 } else if (nombreChoisiParIA[index] > tabtentative[index]) {
-                    System.out.print("+");
+                    LOGGER.debug("+");
                 } else {
-                    System.out.print("=");
+                    LOGGER.debug("=");
                     nbrCorrect++;
                 }
             }
-            System.out.println();
+            LOGGER.debug(" " );
 
             //condition d'arret du jeu avec affichage
             if (nbrCorrect == longueurC){
-                System.out.println("Bravo, le joueur a gagne");
+                LOGGER.debug("Bravo, le joueur a gagne");
                 partieTermine = true;
             }
     } while (!partieTermine);//
 
         //Condition pour l' arret du jeu avec affichage
         if (nbrCorrect != longueurC){
-            System.out.print("Le joueur a perdu !");
+            LOGGER.debug("Le joueur a perdu !");
         } else {
-            System.out.print("L'IA a perdu !");
+            LOGGER.debug("L'IA a perdu !");
         }
 
     }

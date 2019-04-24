@@ -1,13 +1,16 @@
-import java.util.Random;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.util.Scanner;
 
 public class Challenger {
 
-    /* Ajouter une méthode jouer()
-     Elle contient la logique du mode challenger (La même chose que ce qu'on a fait dans Main.java)
-     Copier les deux méthodes player et random
-     tu appelles ces deux méthodes dans la méthode jouer ()
+    /* Ajout d'une methode jouer()
+     Elle contient la logique du mode challenger
+     Appel de deux méthodes player et random dans la méthode jouer ()
     */
+
+    private static final Logger LOGGER = LogManager.getLogger(Challenger.class.getName());
+
     public void jouer() {
 
         int longueurC = 3;
@@ -17,33 +20,58 @@ public class Challenger {
     int tabPc[] = Fonction.random(longueurC);
 
         do{
-            System.out.println("Saisir un nombre");
+            //Declaration de la saisie avec appel de la fonction player
+
+            LOGGER.debug("Saisir un nombre");
             Scanner input = new Scanner(System.in);
-            String saisieJoueur = input.nextLine();
-            int tabPlayer[] = Fonction.player(longueurC, saisieJoueur);
+            String saisieJoueur;
+            int tabPlayer[];
+            try{
+                saisieJoueur = input.nextLine();
+                tabPlayer = Fonction.player(longueurC, saisieJoueur);
 
+            //Boucle permettant de restituer la position correct d'un nombre saisi par le joueur
 
-            System.out.print("Proposition : " + saisieJoueur + " -> Réponse : ");
-            nbrCorrect = 0;
-            for (int index = 0; index < longueurC; index++) {
-                if(tabPc[index] < tabPlayer[index]){
-                    System.out.print("-");
-                } else if(tabPc[index] > tabPlayer[index]){
-                    System.out.print("+");
-                } else {
-                    System.out.print("=");
-                    nbrCorrect ++;
+                LOGGER.debug("Proposition : " + saisieJoueur + " -> Réponse : ");
+                nbrCorrect = 0;
+                for (int index = 0; index < longueurC; index++) {
+                    if(tabPc[index] < tabPlayer[index]){
+                        LOGGER.debug("-");
+                    } else if(tabPc[index] > tabPlayer[index]){
+                        LOGGER.debug("+");
+                    } else {
+                        LOGGER.debug("=");
+                        nbrCorrect ++;
+                    }
                 }
+
+                /*Condition d'arret et decrementation du nombre d'essai en comparaison de la longueur du tableau
+                et nbrCorrect
+                */
+                nombreEssai --;
+                LOGGER.debug(" ");
+                if (nbrCorrect == longueurC){
+                    LOGGER.debug("Bravo, tu as gagne");
+                }
+
+
+            if (nbrCorrect != longueurC){
+                LOGGER.debug("VOUS AVEZ PERDU !");
             }
-            nombreEssai --;
-            System.out.println();
-            if (nbrCorrect == longueurC){
-                System.out.print("Bravo, tu as gagne");
+            //Affichage des exceptions
+
+            } catch(NumberFormatException e){
+                LOGGER.error("Vous ne pouvez pas saisir de lettre");
+                break;
+            } catch (StringIndexOutOfBoundsException e){
+                LOGGER.error("Respecter le nombre de chiffres");
             }
+
+        //  condition d'arrêt jusqu'a epuisement du nombre d'essai et l'inegalite entre nbrCorrect et longueur C
+
         } while(nombreEssai > 0 && nbrCorrect != longueurC);
 
-        if (nbrCorrect != longueurC){
-            System.out.print("VOUS AVEZ PERDU !");
-        }
+
+
     }
 }

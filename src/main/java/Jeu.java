@@ -1,24 +1,28 @@
 import java.awt.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Jeu {
+
+    private static final Logger LOGGER = LogManager.getLogger(Jeu.class.getName());
 
     public void lancerLeJeu(int operation) {
         switch (operation) {
             case 1:
-                System.out.println("Vous avez choisi le mode 1: challenger");
+                LOGGER.debug("Vous avez choisi le mode 1: challenger");
 
                 Challenger modeChallenger = new Challenger();
                 modeChallenger.jouer();
                 break;
 
             case 2:
-                System.out.println("Vous avez choisi le mode 2: defenseur");
+                LOGGER.debug("Vous avez choisi le mode 2: defenseur");
 
                 Defenseur modeDefenseur = new Defenseur();
                 modeDefenseur.jouer();
                 break;
             case 3:
-                System.out.println("Vous avez choisi le mode 3: duel");
+                LOGGER.debug("Vous avez choisi le mode 3: duel");
 
                 Duel modeDuel = new Duel();
                 modeDuel.jouer();
