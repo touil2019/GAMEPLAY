@@ -12,7 +12,7 @@ public class Menu {private static final Logger LOGGER = LogManager.getLogger(Men
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        LOGGER.debug("Selectionner votre mode de jeu en tapant *1 challenger* ou *2 defenseur* ou *3 duel*");
+        LOGGER.info("Selectionner votre mode de jeu en tapant *1 challenger* ou *2 defenseur* ou *3 duel*");
         int operation = sc.nextInt();
 
         new Jeu().lancerLeJeu(operation);

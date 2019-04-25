@@ -6,17 +6,22 @@ import java.util.Scanner;
 
 public class Defenseur {
 
+     /*Ajout d'une methode jouer()
+     Elle contient la logique du mode Defenseur
+     Appel de deux focntions player et random dans la méthode jouer ()
+    */
+
     private static final Logger LOGGER = LogManager.getLogger(Defenseur.class.getName());
 
     public void jouer() {
 
-        int longueurC = 3;
-        int nombreEssai = 8;
+        int longueurC = 4;
+        int nombreEssai = 5;
         boolean partieTermine = false;
         Borne[] borneDuRandom = Borne.initialiserLesBornes(longueurC);
 
 
-        LOGGER.debug("Saisir un nombre");
+        LOGGER.info("Saisir un nombre");
         Scanner input = new Scanner(System.in);
         String saisieJoueur = input.nextLine();
         int tabPlayer[] = Fonction.player(longueurC, saisieJoueur);
@@ -27,23 +32,23 @@ public class Defenseur {
         do{
             Fonction.random(propositionIA, borneDuRandom, tableauDeVerification);
 
-            LOGGER.debug("Proposition : " + Arrays.toString(propositionIA) + " -> Réponse : ");
+            LOGGER.info("Proposition : " + Arrays.toString(propositionIA) + " -> Réponse : ");
             String verification = input.nextLine();
 
             tableauDeVerification = verification.toCharArray();
             for (int index = 0; index < longueurC; index++) {
                 if('+' == tableauDeVerification[index]){
                     borneDuRandom[index].setMinValue(propositionIA[index]);
-                    LOGGER.debug("+ borneDuRandom[index]"+borneDuRandom[index]);
+                    LOGGER.info("+ borneDuRandom[index]"+borneDuRandom[index]);
                 } else if('-' == tableauDeVerification[index]){
                     borneDuRandom[index].setMaxValue(propositionIA[index]);
-                    LOGGER.debug("- borneDuRandom[index]"+borneDuRandom[index]);
+                    LOGGER.info("- borneDuRandom[index]"+borneDuRandom[index]);
                 }
             }
             LOGGER.debug(" ");
 
             if ("===".equals(verification)){
-                LOGGER.debug("Bravo, tu as gagne");
+                LOGGER.info("Bravo, tu as gagne");
                 partieTermine = true;
             }
             nombreEssai --;
@@ -51,7 +56,7 @@ public class Defenseur {
 
         if (
                 partieTermine == false){
-            LOGGER.debug("VOUS AVEZ PERDU !");
+            LOGGER.info("VOUS AVEZ PERDU !");
         }
     }
 }

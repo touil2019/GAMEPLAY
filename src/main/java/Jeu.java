@@ -9,20 +9,20 @@ public class Jeu {
     public void lancerLeJeu(int operation) {
         switch (operation) {
             case 1:
-                LOGGER.debug("Vous avez choisi le mode 1: challenger");
+                LOGGER.info("Vous avez choisi le mode 1: challenger");
 
                 Challenger modeChallenger = new Challenger();
                 modeChallenger.jouer();
                 break;
 
             case 2:
-                LOGGER.debug("Vous avez choisi le mode 2: defenseur");
+                LOGGER.info("Vous avez choisi le mode 2: defenseur");
 
                 Defenseur modeDefenseur = new Defenseur();
                 modeDefenseur.jouer();
                 break;
             case 3:
-                LOGGER.debug("Vous avez choisi le mode 3: duel");
+                LOGGER.info("Vous avez choisi le mode 3: duel");
 
                 Duel modeDuel = new Duel();
                 modeDuel.jouer();

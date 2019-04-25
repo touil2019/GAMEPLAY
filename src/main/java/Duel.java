@@ -15,14 +15,14 @@ public class Duel {
     public void jouer() {
 
 
-        int longueurC = 3;
+        int longueurC = 4;
         int nbrCorrect = 0;
         boolean partieTermine = false;
         int nombreChoisiParIA[] = Fonction.random(longueurC);
 
         Scanner input = new Scanner(System.in);
 
-        LOGGER.debug("Saisir un nombre :");
+        LOGGER.info("Saisir un nombre :");
         String saisieJoueur = input.nextLine();
         int nombreChoisiParJoueur[] = Fonction.player(longueurC, saisieJoueur);
         int[] propositionIA = new int[longueurC];
@@ -30,7 +30,7 @@ public class Duel {
         char[] tableauDeVerification = new char[longueurC];
         Borne[] borneDuRandom = Borne.initialiserLesBornes(longueurC);
 
-        LOGGER.debug("Le nombre choisi par le joueur est : " + saisieJoueur);
+        LOGGER.info("Le nombre choisi par le joueur est : " + saisieJoueur);
 
         do {
             /*Generation d'un nombre aleatoire par l'IA avec enregistrement du nombre dans les
@@ -39,7 +39,7 @@ public class Duel {
             Fonction.random(propositionIA, borneDuRandom, tableauDeVerification);
 
             //Affichage de la proposition de l'IA
-            LOGGER.debug("Proposition : " + Arrays.toString(propositionIA) + " -> Réponse : ");
+            LOGGER.info("Proposition : " + Arrays.toString(propositionIA) + " -> Réponse : ");
             String verification = input.nextLine();
 
             /*Boucle avec condition permettant d'enregistrer la proposition de l'IA
@@ -68,7 +68,7 @@ public class Duel {
 
             //Boucle avec condition afin de comparer le nomnbreChoisiParIA et le tableau du Joueur
 
-            LOGGER.debug("Proposition : " + tentativeJoueur + " -> Réponse : ");
+            LOGGER.info("Proposition : " + tentativeJoueur + " -> Réponse : ");
             nbrCorrect = 0;
             for (int index = 0; index < longueurC; index++) {
                 if (nombreChoisiParIA[index] < tabtentative[index]) {
@@ -84,18 +84,17 @@ public class Duel {
 
             //condition d'arret du jeu avec affichage
             if (nbrCorrect == longueurC){
-                LOGGER.debug("Bravo, le joueur a gagne");
+                LOGGER.info("Bravo, le joueur a gagne");
                 partieTermine = true;
             }
     } while (!partieTermine);//
 
         //Condition pour l' arret du jeu avec affichage
         if (nbrCorrect != longueurC){
-            LOGGER.debug("Le joueur a perdu !");
+            LOGGER.info("Le joueur a perdu !");
         } else {
-            LOGGER.debug("L'IA a perdu !");
+            LOGGER.info("L'IA a perdu !");
         }
-
     }
 }
 

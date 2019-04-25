@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Challenger {
 
     /* Ajout d'une methode jouer()
-     Elle contient la logique du mode challenger
+     Elle contient la logique du mode Challenger
      Appel de deux méthodes player et random dans la méthode jouer ()
     */
 
@@ -13,7 +13,7 @@ public class Challenger {
 
     public void jouer() {
 
-        int longueurC = 3;
+        int longueurC = 4;
         int nombreEssai = 5;
         int nbrCorrect = 0;
 
@@ -22,7 +22,7 @@ public class Challenger {
         do{
             //Declaration de la saisie avec appel de la fonction player
 
-            LOGGER.debug("Saisir un nombre");
+            LOGGER.info("Saisir un nombre");
             Scanner input = new Scanner(System.in);
             String saisieJoueur;
             int tabPlayer[];
@@ -32,15 +32,15 @@ public class Challenger {
 
             //Boucle permettant de restituer la position correct d'un nombre saisi par le joueur
 
-                LOGGER.debug("Proposition : " + saisieJoueur + " -> Réponse : ");
+                LOGGER.info("Proposition : " + saisieJoueur + " -> Réponse : ");
                 nbrCorrect = 0;
                 for (int index = 0; index < longueurC; index++) {
                     if(tabPc[index] < tabPlayer[index]){
-                        LOGGER.debug("-");
+                        LOGGER.info("-");
                     } else if(tabPc[index] > tabPlayer[index]){
-                        LOGGER.debug("+");
+                        LOGGER.info("+");
                     } else {
-                        LOGGER.debug("=");
+                        LOGGER.info("=");
                         nbrCorrect ++;
                     }
                 }
@@ -51,20 +51,19 @@ public class Challenger {
                 nombreEssai --;
                 LOGGER.debug(" ");
                 if (nbrCorrect == longueurC){
-                    LOGGER.debug("Bravo, tu as gagne");
+                    LOGGER.info(" Bravo, tu as gagne ");
                 }
 
 
-            if (nbrCorrect != longueurC){
-                LOGGER.debug("VOUS AVEZ PERDU !");
-            }
-            //Affichage des exceptions
+
+
+                /* Affichage des exceptions */
 
             } catch(NumberFormatException e){
-                LOGGER.error("Vous ne pouvez pas saisir de lettre");
+                LOGGER.error(" Vous ne pouvez pas saisir de lettre ");
                 break;
             } catch (StringIndexOutOfBoundsException e){
-                LOGGER.error("Respecter le nombre de chiffres");
+                LOGGER.error(" Respecter le nombre de chiffres ");
             }
 
         //  condition d'arrêt jusqu'a epuisement du nombre d'essai et l'inegalite entre nbrCorrect et longueur C
@@ -72,6 +71,8 @@ public class Challenger {
         } while(nombreEssai > 0 && nbrCorrect != longueurC);
 
 
-
+        if (nbrCorrect != longueurC){
+            LOGGER.info(" VOUS AVEZ PERDU ! ");
+        }
     }
 }

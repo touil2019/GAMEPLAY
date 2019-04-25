@@ -15,12 +15,12 @@ public class Fonction {
         return tab1;
     }
 
+    // creation d'une fonction random an parametre trois tableaux pour permettre de faire évoluer la réponse de l'IA
+
     public static void random(int reponse[], Borne[] borneDuRandom, char[] tableauDeVerification){
         Random r = new Random();
         for (int index = 0; index < reponse.length; index++) {
             if (!"=".equals(tableauDeVerification[index])){
-                System.out.println("minValue = " + borneDuRandom[index].minValue);
-                System.out.println("maxValue = " + borneDuRandom[index].maxValue);
                 int minValue = borneDuRandom[index].getMinValue();
                 int maxValue = borneDuRandom[index].getMaxValue();
 
