@@ -2,7 +2,11 @@ import java.util.Random;
 
 public class Fonction {
 
-    //creation d'un nombre aleatoire
+    /**creation d'un nombre aleatoire
+     *
+     * @param longueurC
+     * @return
+     */
 
     public static int[] random(int longueurC) {
 
@@ -15,7 +19,12 @@ public class Fonction {
         return tab1;
     }
 
-    // creation d'une fonction random an parametre trois tableaux pour permettre de faire évoluer la réponse de l'IA
+    /**creation d'une fonction random an parametre trois tableaux pour permettre de faire évoluer la reponse de l'IA
+     *
+     * @param reponse
+     * @param borneDuRandom
+     * @param tableauDeVerification
+     */
 
     public static void random(int reponse[], Borne[] borneDuRandom, char[] tableauDeVerification){
         Random r = new Random();
@@ -29,7 +38,13 @@ public class Fonction {
             }
         }
     }
-    // prise en compte da la saisie utilisateur
+
+    /** prise en compte da la saisie utilisateur
+     *
+     * @param longueurC
+     * @param saisiejoueur
+     * @return
+     */
 
     public static int[] player(int longueurC,String saisiejoueur){
 

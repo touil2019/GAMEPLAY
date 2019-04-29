@@ -11,10 +11,18 @@ public class Challenger {
 
     private static final Logger LOGGER = LogManager.getLogger(Challenger.class.getName());
 
+    //Creation d'un constructeur Jeu permettant à la fin de chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
+
+    private Jeu jeu;
+
+    public Challenger(Jeu j) { this.jeu = j; }
+
     public void jouer() {
 
-        int longueurC = 4;
-        int nombreEssai = 5;
+        PropertyLoader propriete = PropertyLoader.getInstance();
+
+        int longueurC = propriete.longueurC;
+        int nombreEssai = propriete.nombreEssai;
         int nbrCorrect = 0;
 
     int tabPc[] = Fonction.random(longueurC);
@@ -54,9 +62,6 @@ public class Challenger {
                     LOGGER.info(" Bravo, tu as gagne ");
                 }
 
-
-
-
                 /* Affichage des exceptions */
 
             } catch(NumberFormatException e){
@@ -74,5 +79,8 @@ public class Challenger {
         if (nbrCorrect != longueurC){
             LOGGER.info(" VOUS AVEZ PERDU ! ");
         }
+        this.jeu.menuPrincipal();
+
     }
+
 }

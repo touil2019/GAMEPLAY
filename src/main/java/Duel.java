@@ -3,20 +3,30 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**Ajout d'une methode jouer()
+ Elle contient la logique du mode Duel
+ Appel de trois focntions player et random dans la méthode jouer ()
+ */
+
+
 public class Duel {
 
     private static final Logger LOGGER = LogManager.getLogger(Duel.class.getName());
 
-    /*Ajout d'une methode jouer()
-     Elle contient la logique du mode Duel
-     Appel de trois focntions player et random dans la méthode jouer ()
-    */
+//Creation d'un constructeur Jeu permettant à la fin de chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
+    private Jeu jeu;
+
+    public Duel(Jeu j) { this.jeu = j; }
+
 
     public void jouer() {
 
 
-        int longueurC = 4;
-        int nbrCorrect = 0;
+        PropertyLoader propriete = PropertyLoader.getInstance();
+
+        int longueurC = propriete.longueurC;
+
+        int nbrCorrect ;
         boolean partieTermine = false;
         int nombreChoisiParIA[] = Fonction.random(longueurC);
 
@@ -56,7 +66,7 @@ public class Duel {
             }
 
             //Condition d'arrêt avec affichage
-            if ("===".equals(verification)) {
+            if ("====".equals(verification)) {
                 LOGGER.debug("Bravo, l'IA a gagne");
                 partieTermine = true;
             }
@@ -95,6 +105,7 @@ public class Duel {
         } else {
             LOGGER.info("L'IA a perdu !");
         }
+        this.jeu.menuPrincipal();
     }
 }
 
