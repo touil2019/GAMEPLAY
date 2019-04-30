@@ -1,3 +1,5 @@
+package com.enedis.Mustapha;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -43,11 +45,12 @@ public class Jeu {
 
         Scanner sc = new Scanner(System.in);
 
-        LOGGER.info("Selectionner votre mode de jeu en tapant *1 challenger* ou *2 defenseur* ou *3 duel* ou *4 quitter*");
+        System.out.println("Selectionner votre mode de jeu en tapant *1 challenger* ou *2 defenseur* ou *3 duel* ou *4 quitter*");
 
         int operation = sc.nextInt();
         lancerLeJeu(operation);
     }
+
 
 
    }

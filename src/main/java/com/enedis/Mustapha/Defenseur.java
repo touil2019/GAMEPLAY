@@ -1,3 +1,5 @@
+package com.enedis.Mustapha;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,13 +11,13 @@ public class Defenseur {
 
 
      /*Ajout d'une methode jouer()
-     Elle contient la logique du mode Defenseur
+     Elle contient la logique du mode com.enedis.Mustapha.Defenseur
      Appel de deux focntions player et random dans la méthode jouer ()
     */
 
     private static final Logger LOGGER = LogManager.getLogger(Defenseur.class.getName());
 
-    //Creation d'un constructeur Jeu permettant à la fin de chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
+    //Creation d'un constructeur com.enedis.Mustapha.Jeu permettant à la fin de chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
 
     private Jeu jeu;
 
@@ -25,10 +27,10 @@ public class Defenseur {
 
     public void jouer() {
 
-        PropertyLoader propriete = PropertyLoader.getInstance();
+        GetPropertyValues conf = new GetPropertyValues();
 
-        int longueurC = propriete.longueurC;
-        int nombreEssai = propriete.nombreEssai;
+        int longueurC = conf.longueurC;
+        int nombreEssai =conf.nombreEssai;
         boolean partieTermine = false;
         Borne[] borneDuRandom = Borne.initialiserLesBornes(longueurC);
         char[] tableauDeVerification = new char[longueurC];

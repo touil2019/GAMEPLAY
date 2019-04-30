@@ -1,31 +1,43 @@
+package com.enedis.Mustapha;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Challenger {
 
     /* Ajout d'une methode jouer()
-     Elle contient la logique du mode Challenger
+     Elle contient la logique du mode com.enedis.Mustapha.Challenger
      Appel de deux méthodes player et random dans la méthode jouer ()
     */
 
     private static final Logger LOGGER = LogManager.getLogger(Challenger.class.getName());
 
-    //Creation d'un constructeur Jeu permettant à la fin de chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
+    //Creation d'un constructeur com.enedis.Mustapha.Jeu permettant à la fin de chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
 
     private Jeu jeu;
 
-    public Challenger(Jeu j) { this.jeu = j; }
+    public Challenger(Jeu j) { this.jeu = j;
+
+    }
 
     public void jouer() {
 
-        PropertyLoader propriete = PropertyLoader.getInstance();
+        GetPropertyValues conf = new GetPropertyValues();
 
-        int longueurC = propriete.longueurC;
-        int nombreEssai = propriete.nombreEssai;
+        int longueurC = conf.longueurC;
+        int nombreEssai =conf.nombreEssai;
+        int modeDev = conf.modeDev;
         int nbrCorrect = 0;
 
     int tabPc[] = Fonction.random(longueurC);
+
+    if (modeDev == 1){
+        System.out.println("le code scret de l'ordinateur est : "+ Arrays.toString(tabPc));
+    }
+
 
         do{
             //Declaration de la saisie avec appel de la fonction player

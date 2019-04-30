@@ -1,10 +1,12 @@
+package com.enedis.Mustapha;
+
 import java.util.Arrays;
 import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**Ajout d'une methode jouer()
- Elle contient la logique du mode Duel
+ Elle contient la logique du mode com.enedis.Mustapha.Duel
  Appel de trois focntions player et random dans la méthode jouer ()
  */
 
@@ -13,7 +15,7 @@ public class Duel {
 
     private static final Logger LOGGER = LogManager.getLogger(Duel.class.getName());
 
-//Creation d'un constructeur Jeu permettant à la fin de chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
+//Creation d'un constructeur com.enedis.Mustapha.Jeu permettant à la fin de chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
     private Jeu jeu;
 
     public Duel(Jeu j) { this.jeu = j; }
@@ -22,10 +24,9 @@ public class Duel {
     public void jouer() {
 
 
-        PropertyLoader propriete = PropertyLoader.getInstance();
+        GetPropertyValues conf = new GetPropertyValues();
 
-        int longueurC = propriete.longueurC;
-
+        int longueurC = conf.longueurC;
         int nbrCorrect ;
         boolean partieTermine = false;
         int nombreChoisiParIA[] = Fonction.random(longueurC);
@@ -44,7 +45,7 @@ public class Duel {
 
         do {
             /*Generation d'un nombre aleatoire par l'IA avec enregistrement du nombre dans les
-            tableaux en parametres de la Fonction.random
+            tableaux en parametres de la com.enedis.Mustapha.Fonction.random
              */
             Fonction.random(propositionIA, borneDuRandom, tableauDeVerification);
 

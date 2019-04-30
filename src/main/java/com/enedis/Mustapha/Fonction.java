@@ -1,3 +1,5 @@
+package com.enedis.Mustapha;
+
 import java.util.Random;
 
 public class Fonction {
