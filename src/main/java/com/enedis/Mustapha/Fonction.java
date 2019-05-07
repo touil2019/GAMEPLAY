@@ -4,10 +4,11 @@ import java.util.Random;
 
 public class Fonction {
 
-    /**creation d'un nombre aleatoire
+    /**
+     * creation d'un nombre aleatoire
      *
-     * @param longueurC
-     * @return
+     * @param longueurC longueur de la combinaison
+     * @return tableau
      */
 
     public static int[] random(int longueurC) {
@@ -21,7 +22,7 @@ public class Fonction {
         return tab1;
     }
 
-    /**creation d'une fonction random an parametre trois tableaux pour permettre de faire évoluer la reponse de l'IA
+    /**creation d'une fonction random avec en parametre trois tableaux pour permettre de faire évoluer la reponse de l'IA
      *
      * @param reponse
      * @param borneDuRandom

@@ -5,8 +5,8 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/**Ajout d'une methode jouer()
- Elle contient la logique du mode com.enedis.Mustapha.Duel
+/**
+ * Ajout d'une methode jouer() Elle contient la logique du mode com.enedis.Mustapha.Duel
  Appel de trois focntions player et random dans la méthode jouer ()
  */
 
@@ -27,7 +27,8 @@ public class Duel {
         GetPropertyValues conf = new GetPropertyValues();
 
         int longueurC = conf.longueurC;
-        int nbrCorrect ;
+        int modeDev = conf.modeDev;
+        int nbrCorrect = 0;
         boolean partieTermine = false;
         int nombreChoisiParIA[] = Fonction.random(longueurC);
 
@@ -41,9 +42,14 @@ public class Duel {
         char[] tableauDeVerification = new char[longueurC];
         Borne[] borneDuRandom = Borne.initialiserLesBornes(longueurC);
 
-        LOGGER.info("Le nombre choisi par le joueur est : " + saisieJoueur);
+        if (modeDev == 1) {
+            System.out.println("Le nombre choisi par le joueur est : " + saisieJoueur);
+        }
+
 
         do {
+            try{
+                
             /*Generation d'un nombre aleatoire par l'IA avec enregistrement du nombre dans les
             tableaux en parametres de la com.enedis.Mustapha.Fonction.random
              */
@@ -71,13 +77,15 @@ public class Duel {
                 LOGGER.debug("Bravo, l'IA a gagne");
                 partieTermine = true;
             }
+            if (modeDev == 1) {
+                System.out.println("Le nombre choisi par l'IA est : " + Arrays.toString(nombreChoisiParIA));
+            }
 
-            LOGGER.debug("Le nombre choisi par l'IA est : " + Arrays.toString(nombreChoisiParIA));
             LOGGER.debug("Saisir un nombre");
             String tentativeJoueur = input.nextLine();
             int tabtentative[] = Fonction.player(longueurC, tentativeJoueur);
 
-            //Boucle avec condition afin de comparer le nomnbreChoisiParIA et le tableau du Joueur
+            //Boucle avec condition afin de comparer le nombreChoisiParIA et le tableau du Joueur
 
             LOGGER.info("Proposition : " + tentativeJoueur + " -> Réponse : ");
             nbrCorrect = 0;
@@ -98,9 +106,21 @@ public class Duel {
                 LOGGER.info("Bravo, le joueur a gagne");
                 partieTermine = true;
             }
-    } while (!partieTermine);//
+            /* Affichage des exceptions */
 
-        //Condition pour l' arret du jeu avec affichage
+        } catch(NumberFormatException e){
+            LOGGER.error(" Vous ne pouvez pas saisir de lettre ");
+            break;
+        } catch (StringIndexOutOfBoundsException e){
+            LOGGER.error(" Respecter le nombre de chiffres ");
+        } catch (IllegalArgumentException e){
+            LOGGER.error("La valeur liée doit être positive");
+        }
+            
+            
+    } while (!partieTermine);
+
+        //Condition pour l'arret du jeu avec affichage
         if (nbrCorrect != longueurC){
             LOGGER.info("Le joueur a perdu !");
         } else {

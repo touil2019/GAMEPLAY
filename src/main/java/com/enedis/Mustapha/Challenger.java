@@ -8,18 +8,22 @@ import java.util.Scanner;
 
 public class Challenger {
 
-    /* Ajout d'une methode jouer()
-     Elle contient la logique du mode com.enedis.Mustapha.Challenger
+    /**
+     * Ajout d'une methode jouer() Elle contient la logique du mode com.enedis.Mustapha.Challenger
      Appel de deux méthodes player et random dans la méthode jouer ()
     */
 
     private static final Logger LOGGER = LogManager.getLogger(Challenger.class.getName());
 
-    //Creation d'un constructeur com.enedis.Mustapha.Jeu permettant à la fin de chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
+    /*
+    /Creation d'un constructeur com.enedis.Mustapha.
+    Jeu permettant à la fin de chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
+     */
 
     private Jeu jeu;
 
-    public Challenger(Jeu j) { this.jeu = j;
+    public Challenger(Jeu j) {
+        this.jeu = j;
 
     }
 
@@ -28,67 +32,69 @@ public class Challenger {
         GetPropertyValues conf = new GetPropertyValues();
 
         int longueurC = conf.longueurC;
-        int nombreEssai =conf.nombreEssai;
+        int nombreEssai = conf.nombreEssai;
         int modeDev = conf.modeDev;
         int nbrCorrect = 0;
 
-    int tabPc[] = Fonction.random(longueurC);
+        int tabPc[] = Fonction.random(longueurC);
 
-    if (modeDev == 1){
-        System.out.println("le code scret de l'ordinateur est : "+ Arrays.toString(tabPc));
-    }
+        if (modeDev == 1) {
+            System.out.println("le code secret de l'ordinateur est : " + Arrays.toString(tabPc));
+        }
 
 
-        do{
+        do {
             //Declaration de la saisie avec appel de la fonction player
 
             LOGGER.info("Saisir un nombre");
             Scanner input = new Scanner(System.in);
             String saisieJoueur;
             int tabPlayer[];
-            try{
+            try {
                 saisieJoueur = input.nextLine();
                 tabPlayer = Fonction.player(longueurC, saisieJoueur);
 
-            //Boucle permettant de restituer la position correct d'un nombre saisi par le joueur
+                //Boucle permettant de restituer la position correct d'un nombre saisi par le joueur
 
                 LOGGER.info("Proposition : " + saisieJoueur + " -> Réponse : ");
                 nbrCorrect = 0;
                 for (int index = 0; index < longueurC; index++) {
-                    if(tabPc[index] < tabPlayer[index]){
+                    if (tabPc[index] < tabPlayer[index]) {
                         LOGGER.info("-");
-                    } else if(tabPc[index] > tabPlayer[index]){
+                    } else if (tabPc[index] > tabPlayer[index]) {
                         LOGGER.info("+");
                     } else {
                         LOGGER.info("=");
-                        nbrCorrect ++;
+                        nbrCorrect++;
                     }
                 }
 
                 /*Condition d'arret et decrementation du nombre d'essai en comparaison de la longueur du tableau
                 et nbrCorrect
                 */
-                nombreEssai --;
+                nombreEssai--;
                 LOGGER.debug(" ");
-                if (nbrCorrect == longueurC){
+                if (nbrCorrect == longueurC) {
                     LOGGER.info(" Bravo, tu as gagne ");
                 }
 
                 /* Affichage des exceptions */
 
-            } catch(NumberFormatException e){
+            } catch (NumberFormatException e) {
                 LOGGER.error(" Vous ne pouvez pas saisir de lettre ");
                 break;
-            } catch (StringIndexOutOfBoundsException e){
+            } catch (StringIndexOutOfBoundsException e) {
                 LOGGER.error(" Respecter le nombre de chiffres ");
+            } catch (IllegalArgumentException e) {
+                LOGGER.error("La valeur liée doit être positive");
             }
 
-        //  condition d'arrêt jusqu'a epuisement du nombre d'essai et l'inegalite entre nbrCorrect et longueur C
+            //  condition d'arrêt jusqu'a epuisement du nombre d'essai ou l'inegalite entre nbrCorrect et longueur C
 
-        } while(nombreEssai > 0 && nbrCorrect != longueurC);
+        } while (nombreEssai > 0 && nbrCorrect != longueurC);
 
 
-        if (nbrCorrect != longueurC){
+        if (nbrCorrect != longueurC) {
             LOGGER.info(" VOUS AVEZ PERDU ! ");
         }
         this.jeu.menuPrincipal();

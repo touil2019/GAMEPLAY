@@ -10,14 +10,17 @@ public class Defenseur {
 
 
 
-     /*Ajout d'une methode jouer()
-     Elle contient la logique du mode com.enedis.Mustapha.Defenseur
+     /**
+      * Ajout d'une methode jouer() Elle contient la logique du mode com.enedis.Mustapha.Defenseur
      Appel de deux focntions player et random dans la méthode jouer ()
     */
 
     private static final Logger LOGGER = LogManager.getLogger(Defenseur.class.getName());
 
-    //Creation d'un constructeur com.enedis.Mustapha.Jeu permettant à la fin de chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
+    /*
+    /Creation d'un constructeur com.enedis.Mustapha.
+    Jeu permettant à la fin de chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
+     */
 
     private Jeu jeu;
 
@@ -30,7 +33,8 @@ public class Defenseur {
         GetPropertyValues conf = new GetPropertyValues();
 
         int longueurC = conf.longueurC;
-        int nombreEssai =conf.nombreEssai;
+        int nombreEssai = conf.nombreEssai;
+
         boolean partieTermine = false;
         Borne[] borneDuRandom = Borne.initialiserLesBornes(longueurC);
         char[] tableauDeVerification = new char[longueurC];
@@ -82,7 +86,7 @@ public class Defenseur {
             LOGGER.error("La valeur liée doit être positive");
         }
 
-        //  condition d'arrêt jusqu'a epuisement du nombre d'essai et l'inegalite entre nbrCorrect et longueur C
+        //  condition d'arrêt jusqu'a epuisement du nombre d'essai ou l'inegalite entre nbrCorrect et longueur C
         } while(nombreEssai > 0 && partieTermine == false);
         if (
                 partieTermine == false){

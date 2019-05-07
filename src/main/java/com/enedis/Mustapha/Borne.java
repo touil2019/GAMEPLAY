@@ -12,7 +12,7 @@ public class Borne {
     }
 
     /*Creation d'un tableau de borne afin de faire évoluer le réponse de l'IA
-      pour les modes Defenseurs et com.enedis.Mustapha.Duel.
+      pour les modes Defenseurs et Duel.
      */
     public static Borne[] initialiserLesBornes(int tailleTableau) {
         Borne[] tableauDeBorne = new Borne[tailleTableau];
