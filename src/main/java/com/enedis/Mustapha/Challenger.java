@@ -6,12 +6,14 @@ import org.apache.logging.log4j.Logger;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Ajout d'une methode jouer() Elle contient la logique du mode com.enedis.Mustapha.Challenger
+ Appel de deux méthodes player et random dans la méthode jouer ()
+ */
+
 public class Challenger {
 
-    /**
-     * Ajout d'une methode jouer() Elle contient la logique du mode com.enedis.Mustapha.Challenger
-     Appel de deux méthodes player et random dans la méthode jouer ()
-    */
+
 
     private static final Logger LOGGER = LogManager.getLogger(Challenger.class.getName());
 
@@ -58,22 +60,27 @@ public class Challenger {
 
                 LOGGER.info("Proposition : " + saisieJoueur + " -> Réponse : ");
                 nbrCorrect = 0;
+
+                String resultat= "";
+
                 for (int index = 0; index < longueurC; index++) {
                     if (tabPc[index] < tabPlayer[index]) {
-                        LOGGER.info("-");
+                        resultat= resultat +"-";
                     } else if (tabPc[index] > tabPlayer[index]) {
-                        LOGGER.info("+");
+                        resultat= resultat +"+";
                     } else {
-                        LOGGER.info("=");
+                        resultat= resultat +"=";
                         nbrCorrect++;
                     }
                 }
+
+                LOGGER.info(resultat);
 
                 /*Condition d'arret et decrementation du nombre d'essai en comparaison de la longueur du tableau
                 et nbrCorrect
                 */
                 nombreEssai--;
-                LOGGER.debug(" ");
+
                 if (nbrCorrect == longueurC) {
                     LOGGER.info(" Bravo, tu as gagne ");
                 }
