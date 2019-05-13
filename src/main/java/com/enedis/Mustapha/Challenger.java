@@ -17,9 +17,10 @@ public class Challenger {
 
     private static final Logger LOGGER = LogManager.getLogger(Challenger.class.getName());
 
-    /*
-    /Creation d'un constructeur com.enedis.Mustapha.
-    Jeu permettant à la fin de chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
+    /**
+     * Creation d'un constructeur com.enedis.Mustapha.
+     * Jeu permettant à la fin de chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
+     * @param Jeu j
      */
 
     private Jeu jeu;
@@ -28,6 +29,15 @@ public class Challenger {
         this.jeu = j;
 
     }
+
+    /**
+     * la méthode jouer contient les variables :
+     * longueurC longueur de la combinaison secrete
+     * nombreEssai nombre de tentative
+     * modeDev     affichage du code secret au démarrage du jeu
+     * nbrCorrect  correspond aux nombres de valeurs correcteur identifiée
+     * tabPc nombre aleatoire avec fonction random
+     */
 
     public void jouer() {
 
@@ -48,15 +58,19 @@ public class Challenger {
         do {
             //Declaration de la saisie avec appel de la fonction player
 
-            LOGGER.info("Saisir un nombre");
+
             Scanner input = new Scanner(System.in);
             String saisieJoueur;
             int tabPlayer[];
             try {
-                saisieJoueur = input.nextLine();
-                tabPlayer = Fonction.player(longueurC, saisieJoueur);
+                do {
+                    LOGGER.info(" Saisir un nombre à "+longueurC+" chiffres ");
+                    saisieJoueur = input.nextLine();
+                }while (saisieJoueur.length() > longueurC);
 
-                //Boucle permettant de restituer la position correct d'un nombre saisi par le joueur
+                 tabPlayer = Fonction.player(longueurC, saisieJoueur);
+
+                 //Boucle permettant de restituer la position correct d'un nombre saisi par le joueur
 
                 LOGGER.info("Proposition : " + saisieJoueur + " -> Réponse : ");
                 nbrCorrect = 0;
@@ -89,7 +103,6 @@ public class Challenger {
 
             } catch (NumberFormatException e) {
                 LOGGER.error(" Vous ne pouvez pas saisir de lettre ");
-                break;
             } catch (StringIndexOutOfBoundsException e) {
                 LOGGER.error(" Respecter le nombre de chiffres ");
             } catch (IllegalArgumentException e) {

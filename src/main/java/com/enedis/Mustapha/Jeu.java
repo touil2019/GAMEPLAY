@@ -6,6 +6,13 @@ import org.apache.logging.log4j.Logger;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Jeu est la classe pour lancer le Jeu avec le choix du mode
+ *
+ * @author MUSTAPHA TOUIL
+ * @version
+ */
+
 public class Jeu {
 
     private static final Logger LOGGER = LogManager.getLogger(Jeu.class.getName());
@@ -40,6 +47,12 @@ public class Jeu {
 
     }
 
+    /*
+     * la méthode suivante permet de vérifier la saisie utilisateur.
+     *
+     *
+     */
+
     public void menuPrincipal(){
 
 
@@ -73,7 +86,9 @@ public class Jeu {
                     isValide = false;
                     LOGGER.info("Votre saisie est incorrecte");
                 }
-            }catch (InputMismatchException e){
+            }
+
+            catch (InputMismatchException e){
 
                 sc.nextLine();
                 isValide = false;

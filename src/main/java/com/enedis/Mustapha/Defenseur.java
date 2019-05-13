@@ -6,20 +6,21 @@ import org.apache.logging.log4j.Logger;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Ajout d'une methode jouer() Elle contient la logique du mode com.enedis.Mustapha.Defenseur
+ * Appel de deux focntions player et random dans la méthode jouer ()
+ * @author MUSTAPHA TOUIL
+ * @version
+ */
+
 public class Defenseur {
-
-
-
-     /**
-      * Ajout d'une methode jouer() Elle contient la logique du mode com.enedis.Mustapha.Defenseur
-     Appel de deux focntions player et random dans la méthode jouer ()
-    */
 
     private static final Logger LOGGER = LogManager.getLogger(Defenseur.class.getName());
 
-    /*
-    /Creation d'un constructeur com.enedis.Mustapha.
-    Jeu permettant à la fin de chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
+    /**
+     * Creation d'un constructeur com.enedis.Mustapha.
+     *Jeu permettant à la fin de chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
+     * @Param Jeu
      */
 
     private Jeu jeu;
@@ -27,6 +28,10 @@ public class Defenseur {
     public Defenseur(Jeu j) {
         this.jeu = j;
     }
+
+    /**
+     *
+     */
 
     public void jouer() {
 
@@ -40,17 +45,22 @@ public class Defenseur {
         char[] tableauDeVerification = new char[longueurC];
 
 
+        String saisieJoueur="";
 
-        LOGGER.info("Saisir un nombre");
         Scanner input = new Scanner(System.in);
-        String saisieJoueur = input.nextLine();
-        int tabPlayer[] = Fonction.player(longueurC, saisieJoueur);
-        int[] propositionIA = new int[longueurC];
 
         do{
             try{
 
-            Fonction.random(propositionIA, borneDuRandom, tableauDeVerification);
+                do {
+                    LOGGER.info(" Saisir un nombre à "+longueurC+" chiffres ");
+                    saisieJoueur = input.nextLine();
+                }while (saisieJoueur.length() > longueurC);
+
+                int tabPlayer[] = Fonction.player(longueurC, saisieJoueur);
+                int[] propositionIA = new int[longueurC];
+
+                Fonction.random(propositionIA, borneDuRandom, tableauDeVerification);
 
             LOGGER.info("Proposition : " + Arrays.toString(propositionIA) + " -> Réponse : ");
             String verification = input.nextLine();

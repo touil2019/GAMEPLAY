@@ -3,6 +3,13 @@ package com.enedis.Mustapha;
 
 import java.io.IOException;
 
+/**
+ * appel de la classe Jeu pour le choix du mode et démarrage.
+ *
+ * @author MUSTAPHA TOUIL
+ * @version
+ */
+
 public class Main {
 
 

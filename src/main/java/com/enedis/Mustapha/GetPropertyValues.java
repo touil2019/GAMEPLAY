@@ -4,6 +4,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * Class GetPropertyValues permet d'appeler les variables declarees dans le fichier config.properties
+ *
+ * @author MUSTAPHA TOUIL
+ *
+ */
+
 public class GetPropertyValues {
 
 
@@ -18,6 +25,13 @@ public class GetPropertyValues {
         getPropValues("config.properties");
 
     }
+    /**
+     * retourne la valeur affichée dans le fichier de config pour les variables
+     * longueurC
+     * nombreEssai
+     * modeDev
+     * @return val
+     */
 
     public static GetPropertyValues getInstance() {
 
@@ -25,7 +39,10 @@ public class GetPropertyValues {
     }
 
 
-
+    /**
+     * conversion de la saisie d'un entier en lettre
+     *
+     */
     void getPropValues(String fileName) {
 
         Properties prop = new Properties();

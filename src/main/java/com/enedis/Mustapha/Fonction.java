@@ -8,7 +8,7 @@ public class Fonction {
      * creation d'un nombre aleatoire
      *
      * @param longueurC longueur de la combinaison
-     * @return tableau
+     * @return tab1
      */
 
     public static int[] random(int longueurC) {
@@ -46,7 +46,7 @@ public class Fonction {
      *
      * @param longueurC
      * @param saisiejoueur
-     * @return
+     * @return tab2 Tableau de la saisie du joueur en caractere convertie en entier
      */
 
     public static int[] player(int longueurC,String saisiejoueur){

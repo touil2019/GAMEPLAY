@@ -6,19 +6,30 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Ajout d'une methode jouer() Elle contient la logique du mode com.enedis.Mustapha.Duel
- Appel de trois focntions player et random dans la méthode jouer ()
+ * Ajout d'une methode jouer() dans la classe Duel
+ * Elle contient la logique du mode com.enedis.Mustapha.Duel
+ * Appel de trois focntions player et random dans la méthode jouer ()
+ * @author MUSTAPHA TOUIL
+ * @version
  */
-
 
 public class Duel {
 
     private static final Logger LOGGER = LogManager.getLogger(Duel.class.getName());
 
-//Creation d'un constructeur com.enedis.Mustapha.Jeu permettant à la fin de chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
+    /**
+     * Creation d'un constructeur com.enedis.Mustapha.Jeu permettant à la fin de
+     * chaque mode le choix du joueur : rejouer, nouveau mode ou quitter
+     * @param Jeu j
+   */
     private Jeu jeu;
 
     public Duel(Jeu j) { this.jeu = j; }
+
+    /**
+     *      *
+     *
+     */
 
 
     public void jouer() {
@@ -34,8 +45,12 @@ public class Duel {
 
         Scanner input = new Scanner(System.in);
 
-        LOGGER.info("Saisir un nombre :");
-        String saisieJoueur = input.nextLine();
+                String saisieJoueur ="";
+        do {
+            LOGGER.info(" Saisir un nombre à "+longueurC+" chiffres ");
+            saisieJoueur = input.nextLine();
+        }while (saisieJoueur.length() > longueurC);
+
         int nombreChoisiParJoueur[] = Fonction.player(longueurC, saisieJoueur);
         int[] propositionIA = new int[longueurC];
 
@@ -56,6 +71,7 @@ public class Duel {
             Fonction.random(propositionIA, borneDuRandom, tableauDeVerification);
 
             //Affichage de la proposition de l'IA
+
             LOGGER.info("Proposition : " + Arrays.toString(propositionIA) + " -> Réponse : ");
             String verification = input.nextLine();
 
@@ -116,7 +132,7 @@ public class Duel {
         } catch (IllegalArgumentException e){
             LOGGER.error("La valeur liée doit être positive");
         }
-            
+
             
     } while (!partieTermine);
 
