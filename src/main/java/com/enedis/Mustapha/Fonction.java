@@ -1,8 +1,14 @@
 package com.enedis.Mustapha;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Random;
+import java.util.Scanner;
 
 public class Fonction {
+
+    private static final Logger LOGGER = LogManager.getLogger(Fonction.class.getName());
 
     /**
      * creation d'un nombre aleatoire
@@ -31,14 +37,24 @@ public class Fonction {
 
     public static void random(int reponse[], Borne[] borneDuRandom, char[] tableauDeVerification){
         Random r = new Random();
+        /*Boucle avec condition permettant d'enregistrer la proposition de l'IA
+        afin de remplir un tableau de verification suite à la saisie des reponses par l'utilisateur
+        dans le but d'orienter et faire évoluer la reponse de l'IA
+       */
         for (int index = 0; index < reponse.length; index++) {
-            if (!"=".equals(tableauDeVerification[index])){
-                int minValue = borneDuRandom[index].getMinValue();
-                int maxValue = borneDuRandom[index].getMaxValue();
-
-                int mystere = r.nextInt(maxValue - minValue) + minValue;
-                reponse[index] = mystere;
+            if ('=' == tableauDeVerification[index]) {
+                continue;
+            } else if ('+' == tableauDeVerification[index]) {
+                borneDuRandom[index].setMinValue(reponse[index]);
+            } else if ('-' == tableauDeVerification[index]) {
+                borneDuRandom[index].setMaxValue(reponse[index]);
             }
+
+            int minValue = borneDuRandom[index].getMinValue();
+            int maxValue = borneDuRandom[index].getMaxValue();
+
+            int mystere = r.nextInt(maxValue - minValue) + minValue;
+            reponse[index] = mystere;
         }
     }
 
@@ -57,5 +73,42 @@ public class Fonction {
             tab2[loop]= conversion;
     }
        return tab2;
+    }
+
+    public static String verifierPropositionJoueur(int propositionIa[], int tabtentative[], int longueurC){
+
+        String resultat= "";
+
+        for (int index = 0; index < longueurC; index++) {
+            if (propositionIa[index] < tabtentative[index]) {
+                resultat= resultat +"-";
+            } else if (propositionIa[index] > tabtentative[index]) {
+                resultat= resultat +"+";
+            } else {
+                resultat= resultat +"=";
+            }
+        }
+
+        return resultat;
+    }
+
+    public static int[] recupererPropositionJoueur(int longueurC, Scanner input) {
+        String saisieJoueur;
+        int nombreChoisiParJoueur[] = new int[0];
+        do {
+            try{
+                LOGGER.info(" Saisir un nombre à "+longueurC+" chiffres ");
+                 saisieJoueur = input.nextLine();
+                 nombreChoisiParJoueur = Fonction.player(longueurC, saisieJoueur);
+            } catch(NumberFormatException e){
+                LOGGER.error(" Vous ne pouvez pas saisir de lettre ");
+                saisieJoueur = "";
+            } catch (StringIndexOutOfBoundsException e){
+                LOGGER.error(" Respecter le nombre de chiffres ");
+                saisieJoueur = "";
+            }
+        }while (saisieJoueur.length() != longueurC);
+
+        return nombreChoisiParJoueur;
     }
 }

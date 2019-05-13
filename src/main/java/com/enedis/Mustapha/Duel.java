@@ -2,8 +2,10 @@ package com.enedis.Mustapha;
 
 import java.util.Arrays;
 import java.util.Scanner;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Ajout d'une methode jouer() dans la classe Duel
@@ -34,7 +36,6 @@ public class Duel {
 
     public void jouer() {
 
-
         GetPropertyValues conf = new GetPropertyValues();
 
         int longueurC = conf.longueurC;
@@ -43,98 +44,71 @@ public class Duel {
         boolean partieTermine = false;
         int nombreChoisiParIA[] = Fonction.random(longueurC);
 
+
         Scanner input = new Scanner(System.in);
+        int saisieJoueur[];
 
-                String saisieJoueur ="";
-        do {
-            LOGGER.info(" Saisir un nombre à "+longueurC+" chiffres ");
-            saisieJoueur = input.nextLine();
-        }while (saisieJoueur.length() > longueurC);
 
-        int nombreChoisiParJoueur[] = Fonction.player(longueurC, saisieJoueur);
+        saisieJoueur = Fonction.recupererPropositionJoueur(longueurC, input);
+
         int[] propositionIA = new int[longueurC];
 
-        char[] tableauDeVerification = new char[longueurC];
-        Borne[] borneDuRandom = Borne.initialiserLesBornes(longueurC);
+                char[] tableauDeVerification = new char[longueurC];
+                Borne[] borneDuRandom = Borne.initialiserLesBornes(longueurC);
 
-        if (modeDev == 1) {
-            System.out.println("Le nombre choisi par le joueur est : " + saisieJoueur);
-        }
-
-
-        do {
-            try{
-                
-            /*Generation d'un nombre aleatoire par l'IA avec enregistrement du nombre dans les
-            tableaux en parametres de la com.enedis.Mustapha.Fonction.random
-             */
-            Fonction.random(propositionIA, borneDuRandom, tableauDeVerification);
-
-            //Affichage de la proposition de l'IA
-
-            LOGGER.info("Proposition : " + Arrays.toString(propositionIA) + " -> Réponse : ");
-            String verification = input.nextLine();
-
-            /*Boucle avec condition permettant d'enregistrer la proposition de l'IA
-            afin de remplir un tableau de verification suite à la saisie des reponses par l'utilisateur
-            dans le but d'orienter et faire évoluer la reponse de l'IA
-           */
-            tableauDeVerification = verification.toCharArray();
-            for (int index = 0; index < longueurC; index++) {
-                if ('+' == tableauDeVerification[index]) {
-                    borneDuRandom[index].setMinValue(propositionIA[index]);
-                } else if ('-' == tableauDeVerification[index]) {
-                    borneDuRandom[index].setMaxValue(propositionIA[index]);
+                if (modeDev == 1) {
+                    System.out.println("Le nombre choisi par le joueur est : " + Arrays.toString(saisieJoueur));
                 }
-            }
 
-            //Condition d'arrêt avec affichage
-            if ("====".equals(verification)) {
-                LOGGER.debug("Bravo, l'IA a gagne");
-                partieTermine = true;
-            }
-            if (modeDev == 1) {
-                System.out.println("Le nombre choisi par l'IA est : " + Arrays.toString(nombreChoisiParIA));
-            }
+                do {
+                    try{
+                /*Generation d'un nombre aleatoire par l'IA avec enregistrement du nombre dans les
+                tableaux en parametres de la com.enedis.Mustapha.Fonction.random
+                 */
+                Fonction.random(propositionIA, borneDuRandom, tableauDeVerification);
 
-            LOGGER.debug("Saisir un nombre");
-            String tentativeJoueur = input.nextLine();
-            int tabtentative[] = Fonction.player(longueurC, tentativeJoueur);
+                //Affichage de la proposition de l'IA
 
-            //Boucle avec condition afin de comparer le nombreChoisiParIA et le tableau du Joueur
+                LOGGER.info("Proposition : " + Arrays.toString(propositionIA) + " -> Réponse : ");
+                String verification = input.nextLine();
+                tableauDeVerification = verification.toCharArray();
 
-            LOGGER.info("Proposition : " + tentativeJoueur + " -> Réponse : ");
-            nbrCorrect = 0;
-            for (int index = 0; index < longueurC; index++) {
-                if (nombreChoisiParIA[index] < tabtentative[index]) {
-                    LOGGER.debug("-");
-                } else if (nombreChoisiParIA[index] > tabtentative[index]) {
-                    LOGGER.debug("+");
-                } else {
-                    LOGGER.debug("=");
-                    nbrCorrect++;
+                //Condition d'arrêt avec affichage
+                if ("====".equals(verification)) {
+                    LOGGER.debug("Bravo, l'IA a gagne");
+                    partieTermine = true;
+                    continue;
                 }
+                if (modeDev == 1) {
+                    System.out.println("Le nombre choisi par l'IA est : " + Arrays.toString(nombreChoisiParIA));
+                }
+
+                int tabtentative[] = Fonction.recupererPropositionJoueur(longueurC, input);
+
+                //Boucle avec condition afin de comparer le nombreChoisiParIA et le tableau du Joueur
+
+                nbrCorrect = 0;
+
+                String resultat = Fonction.verifierPropositionJoueur(nombreChoisiParIA, tabtentative, longueurC);
+                LOGGER.info("Proposition : " + Arrays.toString(tabtentative) + " -> Réponse : " + resultat);
+
+                //condition d'arret du jeu avec affichage
+                if ("====".equals(resultat)){
+                    LOGGER.info("Bravo, le joueur a gagne");
+                    nbrCorrect = 4;
+                    partieTermine = true;
+                    continue;
+                }
+                /* Affichage des exceptions */
+
+            } catch(NumberFormatException e){
+                LOGGER.error(" Vous ne pouvez pas saisir de lettre ");
+            } catch (StringIndexOutOfBoundsException e){
+                LOGGER.error(" Respecter le nombre de chiffres ");
+            } catch (IllegalArgumentException e){
+                LOGGER.error("La valeur liée doit être positive");
             }
-            LOGGER.debug(" " );
-
-            //condition d'arret du jeu avec affichage
-            if (nbrCorrect == longueurC){
-                LOGGER.info("Bravo, le joueur a gagne");
-                partieTermine = true;
-            }
-            /* Affichage des exceptions */
-
-        } catch(NumberFormatException e){
-            LOGGER.error(" Vous ne pouvez pas saisir de lettre ");
-            break;
-        } catch (StringIndexOutOfBoundsException e){
-            LOGGER.error(" Respecter le nombre de chiffres ");
-        } catch (IllegalArgumentException e){
-            LOGGER.error("La valeur liée doit être positive");
-        }
-
-            
-    } while (!partieTermine);
+        } while (!partieTermine);
 
         //Condition pour l'arret du jeu avec affichage
         if (nbrCorrect != longueurC){

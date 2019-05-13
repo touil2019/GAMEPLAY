@@ -72,30 +72,19 @@ public class Challenger {
 
                  //Boucle permettant de restituer la position correct d'un nombre saisi par le joueur
 
-                LOGGER.info("Proposition : " + saisieJoueur + " -> Réponse : ");
+
                 nbrCorrect = 0;
 
-                String resultat= "";
-
-                for (int index = 0; index < longueurC; index++) {
-                    if (tabPc[index] < tabPlayer[index]) {
-                        resultat= resultat +"-";
-                    } else if (tabPc[index] > tabPlayer[index]) {
-                        resultat= resultat +"+";
-                    } else {
-                        resultat= resultat +"=";
-                        nbrCorrect++;
-                    }
-                }
-
-                LOGGER.info(resultat);
+                String resultat = Fonction.verifierPropositionJoueur(tabPc, tabPlayer, longueurC);
+                LOGGER.info("Proposition : " + saisieJoueur + " -> Réponse : " + resultat);
 
                 /*Condition d'arret et decrementation du nombre d'essai en comparaison de la longueur du tableau
                 et nbrCorrect
                 */
                 nombreEssai--;
 
-                if (nbrCorrect == longueurC) {
+                if ("====".equals(resultat)) {
+                    nbrCorrect = 4;
                     LOGGER.info(" Bravo, tu as gagne ");
                 }
 
