@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
+
 
 /**
  * Ajout d'une methode jouer() dans la classe Duel
@@ -28,8 +28,9 @@ public class Duel {
 
     public Duel(Jeu j) { this.jeu = j; }
 
-    /**
-     *      *
+    /*
+     *la methode jouer contient la logique de ce mode avec la prise en compte de la saisie utilisateur et
+     *la combinaison cree par l'IA avec condition d'arrêt et d'affichage.
      *
      */
 
@@ -62,6 +63,7 @@ public class Duel {
 
                 do {
                     try{
+
                 /*Generation d'un nombre aleatoire par l'IA avec enregistrement du nombre dans les
                 tableaux en parametres de la com.enedis.Mustapha.Fonction.random
                  */
@@ -74,20 +76,24 @@ public class Duel {
                 tableauDeVerification = verification.toCharArray();
 
                 //Condition d'arrêt avec affichage
+
                 if ("====".equals(verification)) {
                     LOGGER.debug("Bravo, l'IA a gagne");
                     partieTermine = true;
                     continue;
                 }
+                //Affichage de la combinaison secrete de l'IA
+
                 if (modeDev == 1) {
                     System.out.println("Le nombre choisi par l'IA est : " + Arrays.toString(nombreChoisiParIA));
                 }
 
                 int tabtentative[] = Fonction.recupererPropositionJoueur(longueurC, input);
 
-                //Boucle avec condition afin de comparer le nombreChoisiParIA et le tableau du Joueur
-
                 nbrCorrect = 0;
+
+                //appel de la fonction verifierPropositionJoueur
+                //afin d'afficher la proposition de l'IA avec en parametre nombreChoisiParIA, tabtentative, longueurC
 
                 String resultat = Fonction.verifierPropositionJoueur(nombreChoisiParIA, tabtentative, longueurC);
                 LOGGER.info("Proposition : " + Arrays.toString(tabtentative) + " -> Réponse : " + resultat);

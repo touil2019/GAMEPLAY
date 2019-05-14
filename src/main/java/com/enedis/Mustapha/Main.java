@@ -4,7 +4,7 @@ package com.enedis.Mustapha;
 import java.io.IOException;
 
 /**
- * appel de la classe Jeu pour le choix du mode et démarrage.
+ * Classe permettant le démarrage et le choix du mode de jeu
  *
  * @author MUSTAPHA TOUIL
  * @version

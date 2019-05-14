@@ -8,7 +8,9 @@ import java.util.Scanner;
 
 /**
  * Ajout d'une methode jouer() Elle contient la logique du mode com.enedis.Mustapha.Challenger
- Appel de deux méthodes player et random dans la méthode jouer ()
+ *Appel de deux méthodes player et random dans la méthode jouer ()
+ * @author MUSTAPHA TOUIL
+ * @version
  */
 
 public class Challenger {
@@ -30,16 +32,7 @@ public class Challenger {
 
     }
 
-    /**
-     * la méthode jouer contient les variables :
-     * longueurC longueur de la combinaison secrete
-     * nombreEssai nombre de tentative
-     * modeDev     affichage du code secret au démarrage du jeu
-     * nbrCorrect  correspond aux nombres de valeurs correcteur identifiée
-     * tabPc nombre aleatoire avec fonction random
-     */
-
-    public void jouer() {
+     public void jouer() {
 
         GetPropertyValues conf = new GetPropertyValues();
 
@@ -70,7 +63,7 @@ public class Challenger {
 
                  tabPlayer = Fonction.player(longueurC, saisieJoueur);
 
-                 //Boucle permettant de restituer la position correct d'un nombre saisi par le joueur
+                 //fonction permettant de restituer la position correct d'un nombre saisi par le joueur
 
 
                 nbrCorrect = 0;

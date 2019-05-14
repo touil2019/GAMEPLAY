@@ -6,6 +6,13 @@ import org.apache.logging.log4j.Logger;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Classe Fonction regroupe des fonctions permettant le fonctionnement du jeu
+ *
+ * @author MUSTAPHA TOUIL
+ * @version
+ */
+
 public class Fonction {
 
     private static final Logger LOGGER = LogManager.getLogger(Fonction.class.getName());
@@ -28,7 +35,8 @@ public class Fonction {
         return tab1;
     }
 
-    /**creation d'une fonction random avec en parametre trois tableaux pour permettre de faire évoluer la reponse de l'IA
+    /**
+     * creation d'une fonction random avec en parametre trois tableaux pour permettre de faire évoluer la reponse de l'IA
      *
      * @param reponse
      * @param borneDuRandom
@@ -58,7 +66,8 @@ public class Fonction {
         }
     }
 
-    /** prise en compte da la saisie utilisateur
+    /**
+     * prise en compte da la saisie utilisateur
      *
      * @param longueurC
      * @param saisiejoueur
@@ -75,6 +84,14 @@ public class Fonction {
        return tab2;
     }
 
+    /**
+     *Fonction permettant l'affichage avec une sortie des indices alignes à la suite
+     *
+     * @param longueurC
+     * @param propositionIa
+     * @param tabtentative
+     * @return resultat
+     */
     public static String verifierPropositionJoueur(int propositionIa[], int tabtentative[], int longueurC){
 
         String resultat= "";
@@ -92,6 +109,14 @@ public class Fonction {
         return resultat;
     }
 
+
+    /**
+     *Fonction permettant de bloquer la saisie du joueur et catch des exceptions liees à la saisie.
+     *
+     * @param longueurC
+     * @param scanner input
+     * @return nombreChoisiParJoueur permet de retourner la saisie attendue
+     */
     public static int[] recupererPropositionJoueur(int longueurC, Scanner input) {
         String saisieJoueur;
         int nombreChoisiParJoueur[] = new int[0];

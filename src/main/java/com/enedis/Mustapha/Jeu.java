@@ -47,17 +47,14 @@ public class Jeu {
 
     }
 
-    /*
-     * la méthode suivante permet de vérifier la saisie utilisateur.
+    /**
+     * la méthode suivante permet de vérifier la saisie utilisateur avec la mise
+     * en place d'une condition boolean pour bloquer la saisie utilisateur avec catch d'une exception
      *
-     *
+     * @return resultat
      */
 
     public void menuPrincipal(){
-
-
-
-
 
         int operation = saisirModeJeu();
         lancerLeJeu(operation);

@@ -29,9 +29,6 @@ public class Defenseur {
         this.jeu = j;
     }
 
-    /**
-     *
-     */
 
     public void jouer() {
 
@@ -76,13 +73,12 @@ public class Defenseur {
                 }
             }
             LOGGER.debug(" ");
-
+             /*Condition d'arret avec un boolean et decrementation du nombre d'essai */
             if ("====".equals(verification)){
                 LOGGER.info("Bravo, tu as gagne");
                 partieTermine = true;
             }
-             /*Condition d'arret avec un boolean et decrementation du nombre d'essai
-                */
+
             nombreEssai --;
 
             /* Affichage des exceptions */
