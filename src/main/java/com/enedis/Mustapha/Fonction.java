@@ -3,6 +3,7 @@ package com.enedis.Mustapha;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -45,9 +46,9 @@ public class Fonction {
 
     public static void random(int reponse[], Borne[] borneDuRandom, char[] tableauDeVerification){
         Random r = new Random();
+
         /*Boucle avec condition permettant d'enregistrer la proposition de l'IA
-        afin de remplir un tableau de verification suite à la saisie des reponses par l'utilisateur
-        dans le but d'orienter et faire évoluer la reponse de l'IA
+        afin de remplir un tableau et d'orienter et faire évoluer la reponse de l'IA
        */
         for (int index = 0; index < reponse.length; index++) {
             if ('=' == tableauDeVerification[index]) {
@@ -114,7 +115,7 @@ public class Fonction {
      *Fonction permettant de bloquer la saisie du joueur et catch des exceptions liees à la saisie.
      *
      * @param longueurC
-     * @param scanner input
+     * Scanner input
      * @return nombreChoisiParJoueur permet de retourner la saisie attendue
      */
     public static int[] recupererPropositionJoueur(int longueurC, Scanner input) {
@@ -131,9 +132,30 @@ public class Fonction {
             } catch (StringIndexOutOfBoundsException e){
                 LOGGER.error(" Respecter le nombre de chiffres ");
                 saisieJoueur = "";
+            }catch (IllegalArgumentException e){
+                LOGGER.error("Votre saisie est incorrecte");
+                saisieJoueur = "";
             }
         }while (saisieJoueur.length() != longueurC);
 
         return nombreChoisiParJoueur;
+    }
+
+    /**
+     *Fonction permettant de verifier les propositions de l'IA avec condition
+     *
+     * @param longueurC
+     * @param input
+     * @param propositionIA
+     * @return verification
+     */
+    public static String verifierPropositionIa(int[] propositionIA, int longueurC, Scanner input) {
+        String verification;
+        do {
+            LOGGER.info("Proposition : " + Arrays.toString(propositionIA) + " -> Réponse : ");
+            verification = input.nextLine();
+        } while (verification.length() != longueurC);
+
+        return verification;
     }
 }

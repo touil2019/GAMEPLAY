@@ -28,12 +28,6 @@ public class Duel {
 
     public Duel(Jeu j) { this.jeu = j; }
 
-    /*
-     *la methode jouer contient la logique de ce mode avec la prise en compte de la saisie utilisateur et
-     *la combinaison cree par l'IA avec condition d'arrêt et d'affichage.
-     *
-     */
-
 
     public void jouer() {
 
@@ -44,7 +38,7 @@ public class Duel {
         int nbrCorrect = 0;
         boolean partieTermine = false;
         int nombreChoisiParIA[] = Fonction.random(longueurC);
-
+        char[] tableauDeVerification = new char[longueurC];
 
         Scanner input = new Scanner(System.in);
         int saisieJoueur[];
@@ -54,7 +48,7 @@ public class Duel {
 
         int[] propositionIA = new int[longueurC];
 
-                char[] tableauDeVerification = new char[longueurC];
+
                 Borne[] borneDuRandom = Borne.initialiserLesBornes(longueurC);
 
                 if (modeDev == 1) {
@@ -69,19 +63,17 @@ public class Duel {
                  */
                 Fonction.random(propositionIA, borneDuRandom, tableauDeVerification);
 
-                //Affichage de la proposition de l'IA
-
-                LOGGER.info("Proposition : " + Arrays.toString(propositionIA) + " -> Réponse : ");
-                String verification = input.nextLine();
+                //Verification de la proposition de l'IA
+                String verification;
+                verification = Fonction.verifierPropositionIa(propositionIA, longueurC, input);
                 tableauDeVerification = verification.toCharArray();
-
-                //Condition d'arrêt avec affichage
 
                 if ("====".equals(verification)) {
                     LOGGER.debug("Bravo, l'IA a gagne");
                     partieTermine = true;
                     continue;
                 }
+
                 //Affichage de la combinaison secrete de l'IA
 
                 if (modeDev == 1) {

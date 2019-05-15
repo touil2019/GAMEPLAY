@@ -7,7 +7,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * Jeu est la classe pour lancer le Jeu avec le choix du mode
+ * Jeu est la classe permettant  le choix du mode
  *
  * @author MUSTAPHA TOUIL
  * @version

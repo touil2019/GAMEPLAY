@@ -36,67 +36,38 @@ public class Defenseur {
 
         int longueurC = conf.longueurC;
         int nombreEssai = conf.nombreEssai;
+        int modeDev = conf.modeDev;
 
         boolean partieTermine = false;
         Borne[] borneDuRandom = Borne.initialiserLesBornes(longueurC);
         char[] tableauDeVerification = new char[longueurC];
 
-
-        String saisieJoueur="";
-
         Scanner input = new Scanner(System.in);
 
+        int saisieJoueur[] = Fonction.recupererPropositionJoueur(longueurC, input);
+        if (modeDev == 1) {
+            System.out.println("Le nombre choisi par le joueur est : " + Arrays.toString(saisieJoueur));
+        }
+        int[] propositionIA = new int[longueurC];
+        String verification;
         do{
-            try{
-
-                do {
-                    LOGGER.info(" Saisir un nombre à "+longueurC+" chiffres ");
-                    saisieJoueur = input.nextLine();
-                }while (saisieJoueur.length() > longueurC);
-
-                int tabPlayer[] = Fonction.player(longueurC, saisieJoueur);
-                int[] propositionIA = new int[longueurC];
-
-                Fonction.random(propositionIA, borneDuRandom, tableauDeVerification);
-
-            LOGGER.info("Proposition : " + Arrays.toString(propositionIA) + " -> Réponse : ");
-            String verification = input.nextLine();
-
+            Fonction.random(propositionIA, borneDuRandom, tableauDeVerification);
+            verification = Fonction.verifierPropositionIa(propositionIA, longueurC, input);
             tableauDeVerification = verification.toCharArray();
-            for (int index = 0; index < longueurC; index++) {
-                if('+' == tableauDeVerification[index]){
-                    borneDuRandom[index].setMinValue(propositionIA[index]);
-                    LOGGER.info("+ borneDuRandom[index]"+borneDuRandom[index]);
-                } else if('-' == tableauDeVerification[index]){
-                    borneDuRandom[index].setMaxValue(propositionIA[index]);
-                    LOGGER.info("- borneDuRandom[index]"+borneDuRandom[index]);
-                }
-            }
-            LOGGER.debug(" ");
-             /*Condition d'arret avec un boolean et decrementation du nombre d'essai */
-            if ("====".equals(verification)){
-                LOGGER.info("Bravo, tu as gagne");
+
+            if ("====".equals(verification)) {
+                LOGGER.debug("Bravo, l'IA a gagne");
                 partieTermine = true;
+                continue;
             }
 
             nombreEssai --;
-
-            /* Affichage des exceptions */
-
-        } catch(NumberFormatException e){
-            LOGGER.error(" Vous ne pouvez pas saisir de lettre ");
-            break;
-        } catch (StringIndexOutOfBoundsException e){
-            LOGGER.error(" Respecter le nombre de chiffres ");
-        } catch (IllegalArgumentException e){
-            LOGGER.error("La valeur liée doit être positive");
-        }
 
         //  condition d'arrêt jusqu'a epuisement du nombre d'essai ou l'inegalite entre nbrCorrect et longueur C
         } while(nombreEssai > 0 && partieTermine == false);
         if (
                 partieTermine == false){
-            LOGGER.info("VOUS AVEZ PERDU !");
+            LOGGER.info("L'IA A PERDU !");
         }
 
         this.jeu.menuPrincipal();

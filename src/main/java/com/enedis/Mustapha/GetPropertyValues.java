@@ -33,10 +33,7 @@ public class GetPropertyValues {
     }
 
 
-    /*
-     * conversion de la saisie d'un entier en lettre
-     *
-     */
+
     void getPropValues(String fileName) {
 
         Properties prop = new Properties();

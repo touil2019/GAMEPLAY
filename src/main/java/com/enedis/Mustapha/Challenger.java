@@ -53,15 +53,9 @@ public class Challenger {
 
 
             Scanner input = new Scanner(System.in);
-            String saisieJoueur;
             int tabPlayer[];
             try {
-                do {
-                    LOGGER.info(" Saisir un nombre à "+longueurC+" chiffres ");
-                    saisieJoueur = input.nextLine();
-                }while (saisieJoueur.length() > longueurC);
-
-                 tabPlayer = Fonction.player(longueurC, saisieJoueur);
+                tabPlayer = Fonction.recupererPropositionJoueur(longueurC, input);
 
                  //fonction permettant de restituer la position correct d'un nombre saisi par le joueur
 
@@ -69,7 +63,7 @@ public class Challenger {
                 nbrCorrect = 0;
 
                 String resultat = Fonction.verifierPropositionJoueur(tabPc, tabPlayer, longueurC);
-                LOGGER.info("Proposition : " + saisieJoueur + " -> Réponse : " + resultat);
+                LOGGER.info("Proposition : " + Arrays.toString(tabPlayer) + " -> Réponse : " + resultat);
 
                 /*Condition d'arret et decrementation du nombre d'essai en comparaison de la longueur du tableau
                 et nbrCorrect
