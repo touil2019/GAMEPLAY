@@ -1,8 +1,14 @@
 # GAMEPLAY
 
+Copyright : TOUIL Mustapha
+
 Escape Game ONLINE
 
 Projet en lien avec le jeu Escape Game avec la mise en place de la brique “mécanisme de recherche d’une combinaison à X chiffres”.
+
+État du projet : Terminé
+
+le jeu "recherche d’une combinaison à X chiffres" permet d'accéder à plusieurs modes dont voici le descriptif:
 
 3 modes de Jeux:
 
@@ -38,3 +44,14 @@ trois variables de renseigner dans le fichier de config:
 la longueur C correspondANT à la longueur du tableau et aux nombres de chiffres de la combinaison par defaut.
 le nombre d'essai corresponds au nombre tour de jeu .
 le mode dev à 1 permet d'afficher le nombre recherché.
+
+COMPILATION
+
+Cloner le repository depuis GitHub.
+
+Vous avec deux possibilités, soit de lancer l'application depuis votre IDE ou bien depuis une console Windows.
+
+Depuis votre IDE : faites new Project from Version Control et choissisez "Git". Entrer l'url du repository que vous venez de cloner. Vous pouvez lancer l'application depuis votre IDE
+
+Depuis une console Windows : telecharger le fichier "GAMEPLAY.jar". Lancer votre console de commande windows, écrivez " java -jar ", en laissant un espace après jar, faites glisser dans la console windows le fichier GAMEPLAY.jar. Appuyer sur entrée et l'application se lance.
+
